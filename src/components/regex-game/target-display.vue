@@ -1,99 +1,112 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue';
+import { useWindowFocus } from '@vueuse/core';
 import type { Target } from './regex-features';
 
 interface Props {
   targets: Target[];
   matchedTargets: number[];
+  modelValue: string;
+  isValid: boolean;
+  matchCount: number;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+const emit = defineEmits<{
+  'update:modelValue': [value: string];
+  submit: [];
+}>();
+
+const inputRef = ref();
+const error = ref<string | null>(null);
+const windowFocused = useWindowFocus();
+
+watch(windowFocused, (focused) => {
+  if (focused) {
+    inputRef.value?.focus();
+  }
+});
+
+watch(
+  () => props.modelValue,
+  (value) => {
+    if (!value) {
+      error.value = null;
+      return;
+    }
+    try {
+      new RegExp(value);
+      error.value = null;
+    } catch {
+      error.value = 'Invalid regex syntax';
+    }
+  }
+);
+
+const handleKeyDown = () => {
+  if (!error.value && props.modelValue) {
+    emit('submit');
+  }
+};
 </script>
 
 <template>
-  <v-card class="target-display" variant="outlined">
+  <v-card-outlined>
     <v-card-text>
-      <div class="header">
-        <v-icon size="20" color="purple">mdi-target</v-icon>
+      <div class="flex items-center gap-2 mb-4 text-slate-300 font-medium">
+        <v-icon size="20" color="secondary">mdi-target</v-icon>
         <span>Find these patterns</span>
       </div>
 
-      <div class="targets-list">
-        <v-chip
-          v-for="(target, index) in targets"
-          :key="index"
-          :color="matchedTargets.includes(index) ? 'success' : 'default'"
-          :variant="matchedTargets.includes(index) ? 'flat' : 'outlined'"
-          class="target-chip"
-        >
-          <v-icon
-            size="16"
-            :icon="matchedTargets.includes(index) ? 'mdi-check-circle' : 'mdi-circle-outline'"
-            class="mr-2"
-          />
-          <span :class="{ matched: matchedTargets.includes(index) }">
+      <div class="flex flex-wrap gap-3">
+        <v-chip v-for="(target, index) in targets" :key="index"
+          :color="matchedTargets.includes(index) ? 'success' : 'primary'"
+          :variant="matchedTargets.includes(index) ? 'flat' : 'outlined'" class="font-mono text-sm relative">
+          <v-icon size="16" :icon="matchedTargets.includes(index) ? 'mdi-check-circle' : 'mdi-circle-outline'"
+            class="mr-2" />
+          <span :class="{ 'line-through opacity-60': matchedTargets.includes(index) }">
             "{{ target.text }}"
           </span>
-          <span
-            v-if="matchedTargets.includes(index)"
-            class="matched-dot"
-          ></span>
+          <span v-if="matchedTargets.includes(index)"
+            class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"></span>
         </v-chip>
       </div>
-
-      <div class="tip">
-        Tip: Write a single regex that matches all {{ targets.length }} patterns
-      </div>
     </v-card-text>
-  </v-card>
+
+    <v-card-actions class="px-4 pb-4 pt-0">
+      <v-text-field rounded="xl" ref="inputRef" :model-value="modelValue"
+        @update:model-value="emit('update:modelValue', $event)" @keydown.enter="handleKeyDown"
+        placeholder="enter your regex..." variant="solo-filled" density="comfortable" color="primary"
+        base-color="primary" hide-details="auto" prepend-inner-icon="mdi-console" prefix="/" suffix="/g"
+        :error-messages="error || undefined"
+        :messages="isValid ? 'All targets matched! Press Enter to continue' : undefined" autofocus single-line flat
+        class="regex-input">
+        <template #append-inner>
+          <v-chip v-if="modelValue && !error" :color="matchCount > 0 ? 'success' : 'default'" size="small"
+            variant="tonal">
+            {{ matchCount }} match{{ matchCount !== 1 ? 'es' : '' }}
+          </v-chip>
+        </template>
+      </v-text-field>
+    </v-card-actions>
+  </v-card-outlined>
 </template>
 
 <style lang="scss">
-.target-display {
-  background: rgba(15, 23, 42, 0.6) !important;
-  backdrop-filter: blur(12px);
-  border-color: rgba(71, 85, 105, 0.5) !important;
-  border-radius: 12px !important;
-
-  .header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 16px;
-    color: rgb(203, 213, 225);
-    font-weight: 500;
-  }
-
-  .targets-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .target-chip {
+.regex-input {
+  .v-field {
     font-family: monospace;
-    font-size: 0.875rem;
-    position: relative;
-
-    .matched {
-      text-decoration: line-through;
-      opacity: 0.6;
-    }
-
-    .matched-dot {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      width: 12px;
-      height: 12px;
-      background: rgb(16, 185, 129);
-      border-radius: 50%;
-    }
+    background: rgba(15, 23, 42, 0.8) !important;
   }
 
-  .tip {
-    margin-top: 16px;
-    font-size: 0.75rem;
-    color: rgb(100, 116, 139);
+  .v-field__input {
+    color: rgb(34, 211, 238) !important;
+    font-family: monospace;
+  }
+
+  .v-field__prepend-inner,
+  .v-field__append-inner {
+    padding-top: 0;
   }
 }
 </style>
