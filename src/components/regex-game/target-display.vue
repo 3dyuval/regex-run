@@ -9,6 +9,7 @@ interface Props {
   modelValue: string;
   isValid: boolean;
   matchCount: number;
+  streak: number;
 }
 
 const props = defineProps<Props>();
@@ -56,6 +57,10 @@ const handleKeyDown = () => {
       <div class="flex items-center gap-2 mb-4 text-slate-300 font-medium">
         <v-icon size="20" color="secondary">mdi-target</v-icon>
         <span>Find these patterns</span>
+        <span v-if="streak > 1" class="ml-auto streak-text">
+          <v-icon size="16" color="warning">mdi-lightning-bolt</v-icon>
+          {{ streak }}x streak
+        </span>
       </div>
 
       <div class="flex flex-wrap gap-3">
@@ -93,14 +98,24 @@ const handleKeyDown = () => {
 </template>
 
 <style lang="scss">
+.streak-text {
+  color: rgb(var(--v-theme-warning));
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
 .regex-input {
   .v-field {
     font-family: monospace;
-    background: rgba(15, 23, 42, 0.8) !important;
+    background: rgba(var(--v-theme-surface), 0.8) !important;
   }
 
   .v-field__input {
-    color: rgb(34, 211, 238) !important;
+    color: rgb(var(--v-theme-primary)) !important;
     font-family: monospace;
   }
 

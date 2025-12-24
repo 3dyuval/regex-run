@@ -101,9 +101,9 @@ const highlightedText = computed<Segment[]>(() => {
 
 <style lang="scss">
 .game-board {
-  background: rgba(15, 23, 42, 0.8) !important;
+  background: rgba(var(--v-theme-surface), 0.8) !important;
   backdrop-filter: blur(12px);
-  border-color: rgba(71, 85, 105, 0.5) !important;
+  border-color: rgba(var(--v-theme-on-surface), 0.2) !important;
   border-radius: 16px !important;
 
   .window-controls {
@@ -111,21 +111,21 @@ const highlightedText = computed<Segment[]>(() => {
     align-items: center;
     gap: 8px;
     padding: 16px 24px;
-    border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+    border-bottom: 1px solid rgba(var(--v-theme-on-surface), 0.15);
 
     .dot {
       width: 12px;
       height: 12px;
       border-radius: 50%;
 
-      &.red { background: rgba(239, 68, 68, 0.8); }
-      &.yellow { background: rgba(234, 179, 8, 0.8); }
-      &.green { background: rgba(34, 197, 94, 0.8); }
+      &.red { background: rgba(var(--v-theme-error), 0.8); }
+      &.yellow { background: rgba(var(--v-theme-warning), 0.8); }
+      &.green { background: rgba(var(--v-theme-success), 0.8); }
     }
 
     .file-name {
       margin-left: 16px;
-      color: rgb(100, 116, 139);
+      color: rgba(var(--v-theme-on-surface), 0.6);
       font-size: 0.875rem;
       font-family: monospace;
     }
@@ -135,16 +135,16 @@ const highlightedText = computed<Segment[]>(() => {
     font-family: monospace;
     font-size: 1rem;
     line-height: 1.75;
-    color: rgb(203, 213, 225);
+    color: rgb(var(--v-theme-on-surface));
     max-height: 300px;
     overflow-y: auto;
 
     .highlight {
-      color: rgb(34, 211, 238);
-      background: rgba(34, 211, 238, 0.3);
+      color: rgb(var(--v-theme-primary));
+      background: rgba(var(--v-theme-primary), 0.3);
       border-radius: 4px;
       padding: 0 2px;
-      border-bottom: 2px solid rgb(34, 211, 238);
+      border-bottom: 2px solid rgb(var(--v-theme-primary));
     }
   }
 }

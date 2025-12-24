@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import ThemeToggle from "../components/theme-toggle.vue";
+import NavActions from "../components/nav-actions.vue";
 
 type Props = {
   pageTitle?: string;
@@ -28,18 +29,13 @@ const { pageTitle = "Regex Runner" } = Astro.props;
   <body>
     <main class="max-w-4xl mx-auto min-h-screen pb-24">
       <slot />
-      <footer class="text-sm text-center opacity-70 mb-20">
-        <p>&copy; {new Date().getFullYear()} Regex Runner. All rights reserved.</p>
-      </footer>
     </main>
-    <header class="fixed bottom-4 left-0 right-0 z-20">
-      <nav class="w-fit mx-auto flex items-center gap-4 rounded-full px-6 py-3 backdrop-blur-xl"
+    <nav class="fixed bottom-16 left-0 right-0 z-20 w-fit mx-auto flex items-center gap-6 rounded-full px-6 py-3 backdrop-blur-xl"
         style="box-shadow: inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075), 0 0 0 1px hsla(0, 0%, 0%, 0.05), 0 0.3px 0.4px hsla(0, 0%, 0%, 0.02), 0 0.9px 1.5px hsla(0, 0%, 0%, 0.045), 0 3.5px 6px hsla(0, 0%, 0%, 0.09);">
-        <a href="/" class="font-bold text-lg sigmar-ff">Regex</a>
-        <a href="/settings" class="text-sm opacity-70 hover:opacity-100">Settings</a>
+        <a href="/" class="font-bold text-lg sigmar-ff">run-regex-run</a>
+        <NavActions client:load />
         <ThemeToggle client:load />
       </nav>
-    </header>
   </body>
 </html>
 
@@ -49,3 +45,7 @@ const { pageTitle = "Regex Runner" } = Astro.props;
     (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   document.documentElement.classList.add(theme);
 </script>
+
+<style>
+ 
+</style>

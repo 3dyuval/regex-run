@@ -91,15 +91,15 @@ const updateValue = (e: Event) => {
     position: relative;
     display: flex;
     align-items: center;
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(var(--v-theme-surface), 0.8);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(71, 85, 105, 0.5);
+    border: 1px solid rgba(var(--v-theme-on-surface), 0.2);
     border-radius: 12px;
     padding: 0 16px;
 
     &:focus-within {
-      border-color: rgba(34, 211, 238, 0.5);
-      box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.2);
+      border-color: rgba(var(--v-theme-primary), 0.5);
+      box-shadow: 0 0 0 2px rgba(var(--v-theme-primary), 0.2);
     }
 
     .prefix {
@@ -108,7 +108,7 @@ const updateValue = (e: Event) => {
       gap: 8px;
 
       .slash {
-        color: rgb(100, 116, 139);
+        color: rgba(var(--v-theme-on-surface), 0.6);
         font-family: monospace;
       }
     }
@@ -120,11 +120,11 @@ const updateValue = (e: Event) => {
       padding: 16px 8px;
       font-family: monospace;
       font-size: 1.125rem;
-      color: rgb(34, 211, 238);
+      color: rgb(var(--v-theme-primary));
       outline: none;
 
       &::placeholder {
-        color: rgb(71, 85, 105);
+        color: rgba(var(--v-theme-on-surface), 0.4);
       }
     }
 
@@ -134,7 +134,7 @@ const updateValue = (e: Event) => {
       gap: 8px;
 
       .flags {
-        color: rgb(100, 116, 139);
+        color: rgba(var(--v-theme-on-surface), 0.6);
         font-family: monospace;
       }
     }
@@ -145,7 +145,7 @@ const updateValue = (e: Event) => {
     align-items: center;
     gap: 8px;
     margin-top: 12px;
-    color: rgb(239, 68, 68);
+    color: rgb(var(--v-theme-error));
     font-size: 0.875rem;
   }
 
@@ -154,7 +154,7 @@ const updateValue = (e: Event) => {
     align-items: center;
     gap: 8px;
     margin-top: 12px;
-    color: rgb(16, 185, 129);
+    color: rgb(var(--v-theme-success));
     font-size: 0.875rem;
   }
 }

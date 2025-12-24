@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import GameBoard from '@/components/regex-game/game-board.vue';
 import TargetDisplay from '@/components/regex-game/target-display.vue';
@@ -98,26 +98,34 @@ const handleSkip = () => {
   getText();
 };
 
+const handleShowGuide = () => {
+  showLegend.value = true;
+};
+
 onMounted(() => {
   getText();
+  window.addEventListener('game:skip', handleSkip);
+  window.addEventListener('game:show-guide', handleShowGuide);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('game:skip', handleSkip);
+  window.removeEventListener('game:show-guide', handleShowGuide);
 });
 </script>
 
 <template>
   <div class="game-page">
+    <!-- Peeking title at bottom -->
+    <div class="peek-container">
+      <span class="peek-title sigmar-ff">run-regex-run</span>
+    </div>
+
     <div class="game-container">
       <!-- Header -->
       <div class="game-header">
-        <div class="header-badge">
-          <v-icon size="20" color="cyan">mdi-code-tags</v-icon>
-          <span>Regex Challenge</span>
-        </div>
-        <h1 class="game-title">Pattern Finder</h1>
-        <p class="game-subtitle">Master regular expressions one pattern at a time</p>
+        <LevelIndicator :level="level" :score="score" />
       </div>
-
-      <!-- Level indicator -->
-      <LevelIndicator :level="level" :score="score" :streak="streak" />
 
       <!-- Main game area -->
       <div v-if="isLoading" class="loading-state">
@@ -128,63 +136,8 @@ onMounted(() => {
       <div v-else class="game-content">
         <GameBoard :text="text" :regex="regex" :targets="targets" />
 
-        <TargetDisplay
-          v-model="regex"
-          :targets="targets"
-          :matched-targets="matchedTargets"
-          :is-valid="isAllMatched"
-          :match-count="matchCount"
-          @submit="handleSubmit"
-        />
-
-        <!-- Action buttons -->
-        <div class="flex flex-wrap items-center justify-center gap-3">
-          <v-btn
-            variant="tonal"
-            color="grey"
-            prepend-icon="mdi-cog"
-            spaced="start"
-            height="56"
-            min-width="180"
-            href="/settings"
-          >
-            <span class="text-right">
-              <div>Settings</div>
-              <small class="text-medium-emphasis">Preferences</small>
-            </span>
-          </v-btn>
-
-          <v-btn
-            variant="tonal"
-            color="grey"
-            prepend-icon="mdi-refresh"
-            append-icon="mdi-chevron-right"
-            spaced="both"
-            height="56"
-            min-width="180"
-            @click="handleSkip"
-          >
-            <span>
-              <div>Skip</div>
-              <small class="text-medium-emphasis">New challenge</small>
-            </span>
-          </v-btn>
-
-          <v-btn
-            variant="tonal"
-            color="secondary"
-            append-icon="mdi-book-open-variant"
-            spaced="end"
-            height="56"
-            min-width="180"
-            @click="showLegend = true"
-          >
-            <span class="text-left">
-              <div>Pattern Guide</div>
-              <small class="text-medium-emphasis">Regex help</small>
-            </span>
-          </v-btn>
-        </div>
+        <TargetDisplay v-model="regex" :targets="targets" :matched-targets="matchedTargets" :is-valid="isAllMatched"
+          :match-count="matchCount" :streak="streak" @submit="handleSubmit" />
 
         <!-- Feature hints -->
         <v-card-info v-if="currentFeatures.length > 0">
@@ -234,39 +187,40 @@ onMounted(() => {
     @media (min-width: 768px) {
       margin-bottom: 48px;
     }
+  }
 
-    .header-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: rgba(30, 41, 59, 0.5);
-      border: 1px solid rgba(71, 85, 105, 0.5);
-      border-radius: 9999px;
-      margin-bottom: 16px;
+  .peek-container {
+    position: fixed;
+    bottom: 4rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 10;
 
-      span {
-        color: rgb(203, 213, 225);
-        font-weight: 500;
-      }
+    @media (min-width: 768px) {
+      /* height: 4rem; */
     }
 
-    .game-title {
-      font-size: 2.25rem;
-      font-weight: bold;
-      background: linear-gradient(90deg, rgb(34, 211, 238), rgb(168, 85, 247), rgb(236, 72, 153));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 8px;
+    @media (min-width: 1024px) {
+      height: 4rem;
+    }
+  }
 
-      @media (min-width: 768px) {
-        font-size: 3rem;
-      }
+  .peek-title {
+    font-size: 6rem;
+    line-height: 1;
+    color: rgba(var(--v-theme-on-surface), 0.15);
+
+    @media (min-width: 768px) {
+      font-size: 8rem;
     }
 
-    .game-subtitle {
-      color: rgb(148, 163, 184);
+    @media (min-width: 1024px) {
+      font-size: 10rem;
     }
   }
 
@@ -279,7 +233,7 @@ onMounted(() => {
 
     p {
       margin-top: 16px;
-      color: rgb(148, 163, 184);
+      color: rgba(var(--v-theme-on-surface), 0.7);
     }
   }
 

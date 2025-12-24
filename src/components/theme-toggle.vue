@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { computed, watchEffect } from 'vue';
 import { useLocalStorage } from '@vueuse/core';
+import { useTheme } from 'vuetify';
 
+const vuetifyTheme = useTheme();
 const theme = useLocalStorage('theme',
   typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches
     ? 'dark'
@@ -13,6 +15,7 @@ const isLight = computed(() => theme.value === 'light');
 watchEffect(() => {
   if (typeof document === 'undefined') return;
 
+  // Update document classes for Tailwind/CSS
   if (theme.value === 'light') {
     document.documentElement.classList.add('light');
     document.documentElement.classList.remove('dark');
@@ -20,6 +23,9 @@ watchEffect(() => {
     document.documentElement.classList.add('dark');
     document.documentElement.classList.remove('light');
   }
+
+  // Update Vuetify theme
+  vuetifyTheme.global.name.value = theme.value;
 });
 
 function toggle() {
@@ -42,13 +48,13 @@ function toggle() {
   .toggle-track {
     width: 44px;
     height: 24px;
-    background: #374151;
+    background: rgb(var(--v-theme-surface));
     border-radius: 100px;
     position: relative;
     transition: background 0.3s;
 
     &.light {
-      background: var(--space-yellow, #ffff85);
+      background: rgb(var(--v-theme-warning));
     }
   }
 
@@ -58,12 +64,13 @@ function toggle() {
     left: 2px;
     width: 20px;
     height: 20px;
-    background: #fff;
+    background: rgb(var(--v-theme-on-surface));
     border-radius: 20px;
     transition: 0.3s;
 
     .light & {
       left: calc(100% - 22px);
+      background: rgb(var(--v-theme-background));
     }
   }
 

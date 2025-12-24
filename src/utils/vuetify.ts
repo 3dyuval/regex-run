@@ -34,22 +34,45 @@ export default createVuetify({
       variant: "outlined",
       rounded: "xl",
       color: "surface",
-      class: "backdrop-blur-xl !bg-slate-900/60 !border-slate-500/30",
+      class: "backdrop-blur-xl",
+      style:
+        "background: rgba(var(--v-theme-surface), 0.6); border-color: rgba(var(--v-theme-on-surface), 0.15)",
     },
   },
   theme: {
-    defaultTheme: "dark",
+    defaultTheme:
+      typeof localStorage !== "undefined"
+        ? localStorage.getItem("theme") || "dark"
+        : "dark",
     themes: {
       dark: {
         dark: true,
         colors: {
-          background: "#0f172a",
-          surface: "#1e293b",
-          primary: "#22d3ee",
-          secondary: "#a855f7",
-          success: "#10b981",
-          warning: "#f59e0b",
-          error: "#ef4444",
+          background: "#0d4247",
+          surface: "#0d1516",
+          primary: "#4a9e9e",
+          secondary: "#d4722c",
+          success: "#4a9e9e",
+          warning: "#d4a43c",
+          error: "#c04535",
+          info: "#3d8a8a",
+          "on-background": "#d4c898",
+          "on-surface": "#d4c898",
+        },
+      },
+      light: {
+        dark: false,
+        colors: {
+          background: "#f5f0e6",
+          surface: "#ebe5d8",
+          primary: "#2d7a7a",
+          secondary: "#c06525",
+          success: "#2d7a7a",
+          warning: "#c49432",
+          error: "#a83a2d",
+          info: "#2d6a6a",
+          "on-background": "#1a4045",
+          "on-surface": "#1a4045",
         },
       },
     },

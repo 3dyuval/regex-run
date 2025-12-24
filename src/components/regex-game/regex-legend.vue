@@ -100,16 +100,16 @@ const close = () => emit('update:modelValue', false);
 
 <style lang="scss">
 .legend-card {
-  background: rgb(15, 23, 42) !important;
-  border: 1px solid rgba(71, 85, 105, 0.5);
+  background: rgb(var(--v-theme-background)) !important;
+  border: 1px solid rgba(var(--v-theme-on-surface), 0.2);
 
   .legend-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 16px 24px;
-    border-bottom: 1px solid rgba(71, 85, 105, 0.5);
-    background: rgba(15, 23, 42, 0.95);
+    border-bottom: 1px solid rgba(var(--v-theme-on-surface), 0.2);
+    background: rgba(var(--v-theme-background), 0.95);
     backdrop-filter: blur(12px);
 
     .header-content {
@@ -123,7 +123,7 @@ const close = () => emit('update:modelValue', false);
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, rgb(34, 211, 238), rgb(168, 85, 247));
+        background: linear-gradient(135deg, rgb(var(--v-theme-primary)), rgb(var(--v-theme-secondary)));
         border-radius: 12px;
       }
 
@@ -131,13 +131,13 @@ const close = () => emit('update:modelValue', false);
         h2 {
           font-size: 1.25rem;
           font-weight: bold;
-          color: white;
+          color: rgb(var(--v-theme-on-surface));
           margin: 0;
         }
 
         p {
           font-size: 0.875rem;
-          color: rgb(148, 163, 184);
+          color: rgba(var(--v-theme-on-surface), 0.7);
           margin: 0;
         }
       }
@@ -158,8 +158,8 @@ const close = () => emit('update:modelValue', false);
     .feature-card {
       position: relative;
       padding: 16px;
-      background: rgba(30, 41, 59, 0.5) !important;
-      border-color: rgba(71, 85, 105, 0.5) !important;
+      background: rgba(var(--v-theme-surface), 0.5) !important;
+      border-color: rgba(var(--v-theme-on-surface), 0.2) !important;
       border-radius: 12px !important;
       overflow: hidden;
 
@@ -174,13 +174,13 @@ const close = () => emit('update:modelValue', false);
           align-items: center;
           justify-content: center;
           gap: 8px;
-          background: rgba(15, 23, 42, 0.4);
+          background: rgba(var(--v-theme-background), 0.4);
           backdrop-filter: blur(1px);
           z-index: 10;
 
           span {
             font-size: 0.75rem;
-            color: rgb(100, 116, 139);
+            color: rgba(var(--v-theme-on-surface), 0.6);
             font-weight: 500;
           }
         }
@@ -198,15 +198,15 @@ const close = () => emit('update:modelValue', false);
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(34, 211, 238, 0.2);
-          border: 1px solid rgba(34, 211, 238, 0.5);
+          background: rgba(var(--v-theme-primary), 0.2);
+          border: 1px solid rgba(var(--v-theme-primary), 0.5);
           border-radius: 8px;
-          color: rgb(34, 211, 238);
+          color: rgb(var(--v-theme-primary));
         }
 
         .feature-info {
           h4 {
-            color: white;
+            color: rgb(var(--v-theme-on-surface));
             font-weight: 600;
             margin: 0;
           }
@@ -219,7 +219,7 @@ const close = () => emit('update:modelValue', false);
 
             span {
               font-size: 0.75rem;
-              color: rgb(100, 116, 139);
+              color: rgba(var(--v-theme-on-surface), 0.6);
             }
           }
         }
@@ -227,13 +227,13 @@ const close = () => emit('update:modelValue', false);
 
       .feature-description {
         font-size: 0.875rem;
-        color: rgb(203, 213, 225);
+        color: rgb(var(--v-theme-on-surface));
         margin-bottom: 12px;
       }
 
       .feature-example {
-        background: rgba(15, 23, 42, 0.5);
-        border: 1px solid rgba(71, 85, 105, 0.5);
+        background: rgba(var(--v-theme-background), 0.5);
+        border: 1px solid rgba(var(--v-theme-on-surface), 0.2);
         border-radius: 8px;
         padding: 12px;
 
@@ -241,7 +241,7 @@ const close = () => emit('update:modelValue', false);
           font-size: 0.75rem;
           text-transform: uppercase;
           letter-spacing: 0.05em;
-          color: rgb(100, 116, 139);
+          color: rgba(var(--v-theme-on-surface), 0.6);
           display: block;
           margin-bottom: 4px;
         }
@@ -250,13 +250,13 @@ const close = () => emit('update:modelValue', false);
           display: block;
           font-family: monospace;
           font-size: 0.875rem;
-          color: rgb(34, 211, 238);
+          color: rgb(var(--v-theme-primary));
           margin-bottom: 4px;
         }
 
         p {
           font-size: 0.75rem;
-          color: rgb(148, 163, 184);
+          color: rgba(var(--v-theme-on-surface), 0.7);
           margin: 0;
         }
       }

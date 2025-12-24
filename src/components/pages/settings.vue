@@ -178,7 +178,7 @@ const isSelected = (featureId: string) => selectedFeatures.value.includes(featur
 <style lang="scss">
 .settings-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, rgb(15, 23, 42), rgb(30, 41, 59), rgb(15, 23, 42));
+  background: linear-gradient(135deg, rgb(var(--v-theme-background)), rgb(var(--v-theme-surface)), rgb(var(--v-theme-background)));
   padding: 16px;
 
   @media (min-width: 768px) {
@@ -211,7 +211,7 @@ const isSelected = (featureId: string) => selectedFeatures.value.includes(featur
         transition: background-color 0.2s;
 
         &:hover {
-          background-color: rgba(255, 255, 255, 0.1);
+          background-color: rgba(var(--v-theme-on-surface), 0.1);
         }
       }
     }
@@ -227,7 +227,7 @@ const isSelected = (featureId: string) => selectedFeatures.value.includes(featur
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, rgb(168, 85, 247), rgb(34, 211, 238));
+        background: linear-gradient(135deg, rgb(var(--v-theme-secondary)), rgb(var(--v-theme-primary)));
         border-radius: 12px;
       }
 
@@ -235,7 +235,7 @@ const isSelected = (featureId: string) => selectedFeatures.value.includes(featur
         h1 {
           font-size: 1.5rem;
           font-weight: bold;
-          color: white;
+          color: rgb(var(--v-theme-on-surface));
           margin: 0;
 
           @media (min-width: 768px) {
@@ -245,7 +245,7 @@ const isSelected = (featureId: string) => selectedFeatures.value.includes(featur
 
         p {
           font-size: 0.875rem;
-          color: rgb(148, 163, 184);
+          color: rgba(var(--v-theme-on-surface), 0.7);
           margin: 0;
         }
       }
@@ -253,9 +253,9 @@ const isSelected = (featureId: string) => selectedFeatures.value.includes(featur
   }
 
   .settings-card {
-    background: rgba(30, 41, 59, 0.6) !important;
+    background: rgba(var(--v-theme-surface), 0.6) !important;
     backdrop-filter: blur(12px);
-    border-color: rgba(71, 85, 105, 0.5) !important;
+    border-color: rgba(var(--v-theme-on-surface), 0.2) !important;
     border-radius: 12px !important;
     margin-bottom: 24px;
 
@@ -266,20 +266,20 @@ const isSelected = (featureId: string) => selectedFeatures.value.includes(featur
       margin-bottom: 16px;
 
       h3 {
-        color: white;
+        color: rgb(var(--v-theme-on-surface));
         font-weight: 600;
         margin: 0;
       }
 
       p {
-        color: rgb(148, 163, 184);
+        color: rgba(var(--v-theme-on-surface), 0.7);
         font-size: 0.875rem;
         margin: 0;
       }
 
       .feature-count {
         font-size: 0.875rem;
-        color: rgb(148, 163, 184);
+        color: rgba(var(--v-theme-on-surface), 0.7);
       }
     }
   }
@@ -296,20 +296,20 @@ const isSelected = (featureId: string) => selectedFeatures.value.includes(featur
       align-items: flex-start;
       gap: 16px;
       padding: 16px;
-      background: rgba(30, 41, 59, 0.3) !important;
-      border-color: rgba(71, 85, 105, 0.5) !important;
+      background: rgba(var(--v-theme-surface), 0.3) !important;
+      border-color: rgba(var(--v-theme-on-surface), 0.2) !important;
       border-radius: 8px !important;
       cursor: pointer;
       transition: all 0.2s;
 
       &:hover {
-        background: rgba(30, 41, 59, 0.5) !important;
+        background: rgba(var(--v-theme-surface), 0.5) !important;
       }
 
       &.selected {
-        background: rgba(34, 211, 238, 0.1) !important;
-        border-color: rgba(34, 211, 238, 0.3) !important;
-        border-left: 4px solid rgb(34, 211, 238) !important;
+        background: rgba(var(--v-theme-primary), 0.1) !important;
+        border-color: rgba(var(--v-theme-primary), 0.3) !important;
+        border-left: 4px solid rgb(var(--v-theme-primary)) !important;
       }
 
       .feature-checkbox {
@@ -327,14 +327,14 @@ const isSelected = (featureId: string) => selectedFeatures.value.includes(featur
           margin-bottom: 4px;
 
           h4 {
-            color: white;
+            color: rgb(var(--v-theme-on-surface));
             font-weight: 500;
             margin: 0;
           }
         }
 
         .feature-description {
-          color: rgb(148, 163, 184);
+          color: rgba(var(--v-theme-on-surface), 0.7);
           font-size: 0.875rem;
           margin: 0 0 8px;
         }
@@ -347,18 +347,18 @@ const isSelected = (featureId: string) => selectedFeatures.value.includes(featur
 
           code {
             padding: 4px 8px;
-            background: rgba(15, 23, 42, 0.5);
-            color: rgb(34, 211, 238);
+            background: rgba(var(--v-theme-background), 0.5);
+            color: rgb(var(--v-theme-primary));
             border-radius: 4px;
             font-family: monospace;
           }
 
           .arrow {
-            color: rgb(100, 116, 139);
+            color: rgba(var(--v-theme-on-surface), 0.6);
           }
 
           span:last-child {
-            color: rgb(148, 163, 184);
+            color: rgba(var(--v-theme-on-surface), 0.7);
           }
         }
       }
@@ -371,7 +371,7 @@ const isSelected = (featureId: string) => selectedFeatures.value.includes(featur
     justify-content: center;
     gap: 8px;
     margin-top: 24px;
-    color: rgb(100, 116, 139);
+    color: rgba(var(--v-theme-on-surface), 0.6);
     font-size: 0.875rem;
   }
 }
