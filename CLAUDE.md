@@ -1,10 +1,10 @@
 | Category  | Package              |
 | --------- | -------------------- |
 | Framework | Vue 3@latest, Vite 7 |
-| System    | Vuetify              |
-| Store/Api | Pinia + dr-fetch     |
-| Utils     | @vueuse/core,        |
-| Icons     | Remixicon            |
+| UI        | Vuetify              |
+| State     | Pinia                |
+| Utils     | @vueuse/core         |
+| Icons     | MDI (@mdi/font)      |
 
 ---
 
@@ -12,37 +12,55 @@ Style Guide
 
 Component Structure:
 
-  <script setup lang="ts">
-  // imports, props, composables, logic
-  </script>
+```vue
+<script setup lang="ts">
+// imports, props, composables, logic
+</script>
 
 <template>...</template>
 
-  <style lang="scss">...</style>
+<style lang="scss">...</style>
+```
 
 Conventions:
 
-- Files: kebab-case (add-item.vue, config.store.ts)
+- Files: kebab-case (game-board.vue, regex-features.ts)
 - Script: <script setup lang="ts"> (Composition API + TS)
 - Props: defineProps<Props>() with interface
 - Stores: Pinia with use prefix (useConfig)
 - Styles: SCSS, non-scoped (component-specific selectors)
-- Path aliases: @/ = client/src, ~/ = project root
+- Path aliases: @/ = client/src
 
 ```bash
 .
 └── client/
     ├── index.html
-    ├── src/
-    │   ├── App.vue
-        └── pages/
-            └── Game/
-            └── Settings/
-    │   ├── main.ts
-    │   ├── router.ts
-    │   ├── style.scss
-    │   └── vite-env.d.ts
+    ├── package.json
     ├── tsconfig.json
     ├── tsconfig.node.json
-    └── vite.config.ts
+    ├── vite.config.ts
+    └── src/
+        ├── App.vue
+        ├── main.ts
+        ├── router.ts
+        ├── style.scss
+        ├── vite-env.d.ts
+        ├── components/
+        │   └── regex-game/
+        │       ├── game-board.vue
+        │       ├── level-indicator.vue
+        │       ├── regex-features.ts
+        │       ├── regex-input.vue
+        │       ├── regex-legend.vue
+        │       ├── success-modal.vue
+        │       └── target-display.vue
+        ├── pages/
+        │   ├── Game/
+        │   │   └── game.vue
+        │   └── Settings/
+        │       └── settings.vue
+        ├── store/
+        │   └── text.store.ts
+        └── utils/
+            └── vuetify.ts
 ```
