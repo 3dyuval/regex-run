@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useRouter } from 'vue-router';
 import GameBoard from '@/components/regex-game/game-board.vue';
 import RegexInput from '@/components/regex-game/regex-input.vue';
 import TargetDisplay from '@/components/regex-game/target-display.vue';
@@ -10,7 +9,6 @@ import SuccessModal from '@/components/regex-game/success-modal.vue';
 import RegexLegend from '@/components/regex-game/regex-legend.vue';
 import { useTextStore } from '@/store/text.store';
 
-const router = useRouter();
 const textStore = useTextStore();
 const { text, targets, currentFeatures, isLoading } = storeToRefs(textStore);
 
@@ -101,10 +99,6 @@ const handleSkip = () => {
   getText();
 };
 
-const goToSettings = () => {
-  router.push('/settings');
-};
-
 onMounted(() => {
   getText();
 });
@@ -133,9 +127,9 @@ onMounted(() => {
       <!-- Level indicator -->
       <div class="level-row">
         <LevelIndicator :level="level" :score="score" :streak="streak" />
-        <v-btn icon variant="text" color="grey" @click="goToSettings">
-          <v-icon>mdi-cog</v-icon>
-        </v-btn>
+        <a href="/settings" class="settings-link">
+          <v-icon color="grey">mdi-cog</v-icon>
+        </a>
       </div>
 
       <!-- Main game area -->
@@ -321,6 +315,20 @@ onMounted(() => {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 32px;
+
+    .settings-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
   }
 
   .loading-state {

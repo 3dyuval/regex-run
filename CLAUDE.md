@@ -1,10 +1,11 @@
 | Category  | Package              |
 | --------- | -------------------- |
-| Framework | Vue 3@latest, Vite 7 |
+| Framework | Astro, Vue 3         |
 | UI        | Vuetify              |
 | State     | Pinia                |
 | Utils     | @vueuse/core         |
 | Icons     | MDI (@mdi/font)      |
+| Styling   | Tailwind, SCSS       |
 
 ---
 
@@ -29,38 +30,39 @@ Conventions:
 - Props: defineProps<Props>() with interface
 - Stores: Pinia with use prefix (useConfig)
 - Styles: SCSS, non-scoped (component-specific selectors)
-- Path aliases: @/ = client/src
+- Path aliases: @/ = src
 
 ```bash
 .
-└── client/
-    ├── index.html
-    ├── package.json
-    ├── tsconfig.json
-    ├── tsconfig.node.json
-    ├── vite.config.ts
-    └── src/
-        ├── App.vue
-        ├── main.ts
-        ├── router.ts
-        ├── style.scss
-        ├── vite-env.d.ts
-        ├── components/
-        │   └── regex-game/
-        │       ├── game-board.vue
-        │       ├── level-indicator.vue
-        │       ├── regex-features.ts
-        │       ├── regex-input.vue
-        │       ├── regex-legend.vue
-        │       ├── success-modal.vue
-        │       └── target-display.vue
-        ├── pages/
-        │   ├── Game/
-        │   │   └── game.vue
-        │   └── Settings/
-        │       └── settings.vue
-        ├── store/
-        │   └── text.store.ts
-        └── utils/
-            └── vuetify.ts
+├── astro.config.mjs
+├── package.json
+├── tailwind.config.mjs
+├── tsconfig.json
+├── public/
+└── src/
+    ├── components/
+    │   ├── pages/
+    │   │   ├── game.vue
+    │   │   └── settings.vue
+    │   ├── regex-game/
+    │   │   ├── game-board.vue
+    │   │   ├── level-indicator.vue
+    │   │   ├── regex-features.ts
+    │   │   ├── regex-input.vue
+    │   │   ├── regex-legend.vue
+    │   │   ├── success-modal.vue
+    │   │   └── target-display.vue
+    │   └── theme-toggle.vue
+    ├── layouts/
+    │   └── Layout.astro
+    ├── pages/
+    │   ├── _app.ts
+    │   ├── index.astro
+    │   └── settings.astro
+    ├── store/
+    │   └── text.store.ts
+    ├── styles/
+    │   └── global.css
+    └── utils/
+        └── vuetify.ts
 ```

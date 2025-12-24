@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --space-red: #90393a;
+  --space-yellow: #ffff85;
+  --space-sand: #e2d1c3;
+  --space-stone: #434343;
+}
+
+.sigmar-ff {
+  font-family: "Sigmar", sans-serif;
+}
+
+html, body {
+  @apply min-h-screen m-0 p-0;
+  font-family: "Kanit", sans-serif;
+  overscroll-behavior: none;
+}
+
+html.dark body {
+  background: linear-gradient(to bottom, var(--space-stone) 0%, black 100%);
+  @apply text-gray-100;
+}
+
+html.light body {
+  background: linear-gradient(180deg, #fdfcfb 0%, #e2d1c3 100%);
+  @apply text-gray-900;
+}
+
+html.dark a {
+  @apply text-gray-100;
+}
+
+html.light a {
+  @apply text-gray-900;
+}
+
+html.light a:hover {
+  color: var(--space-red);
+}
+
+html.dark a:hover {
+  color: var(--space-yellow);
+}

@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue';
-import { useRouter } from 'vue-router';
 import { REGEX_FEATURES } from '@/components/regex-game/regex-features';
-
-const router = useRouter();
 
 interface Preset {
   name: string;
@@ -73,10 +70,6 @@ const toggleAll = () => {
 };
 
 const isSelected = (featureId: string) => selectedFeatures.value.includes(featureId);
-
-const goBack = () => {
-  router.push('/');
-};
 </script>
 
 <template>
@@ -85,9 +78,9 @@ const goBack = () => {
       <!-- Header -->
       <div class="settings-header">
         <div class="header-left">
-          <v-btn icon variant="text" color="grey" @click="goBack">
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn>
+          <a href="/" class="back-link">
+            <v-icon color="grey">mdi-chevron-left</v-icon>
+          </a>
           <div class="header-content">
             <div class="icon-box">
               <v-icon color="white">mdi-cog</v-icon>
@@ -207,6 +200,20 @@ const goBack = () => {
       display: flex;
       align-items: center;
       gap: 16px;
+
+      .back-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+      }
     }
 
     .header-content {
