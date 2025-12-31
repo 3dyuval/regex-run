@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "vitest",
+    "test:run": "vitest run"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "sass": "^1.89.0",
-    "typescript": "~5.8.3"
+    "typescript": "~5.8.3",
+    "vitest": "^4.0.16"
   }
 }

@@ -7,6 +7,7 @@ import LevelIndicator from '@/components/regex-game/level-indicator.vue';
 import SuccessModal from '@/components/regex-game/success-modal.vue';
 import RegexLegend from '@/components/regex-game/regex-legend.vue';
 import { useTextStore } from '@/store/text.store';
+import { doesMatchSatisfyTarget } from '@/components/regex-game/regex-features';
 
 const textStore = useTextStore();
 const { text, targets, currentFeatures, isLoading } = storeToRefs(textStore);
@@ -44,7 +45,7 @@ const matchedTargets = computed(() => {
       .map((target, index) => {
         const isMatched = matches.some(
           (m) =>
-            m.text.includes(target.text) ||
+            doesMatchSatisfyTarget(m.text, target.text) ||
             (target.start !== undefined &&
               target.end !== undefined &&
               m.start <= target.start &&

@@ -1,3 +1,14 @@
+// Check if a matched text satisfies a target pattern
+// Handles both literal matches and regex patterns (e.g., "ra.a" matching "rada")
+export const doesMatchSatisfyTarget = (matchedText: string, targetPattern: string): boolean => {
+  try {
+    const re = new RegExp(`^${targetPattern}$`);
+    return re.test(matchedText);
+  } catch {
+    return matchedText.includes(targetPattern);
+  }
+};
+
 export interface RegexFeature {
   id: string;
   name: string;
