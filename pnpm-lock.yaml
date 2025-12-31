@@ -20,6 +20,9 @@ importers:
       '@vueuse/core':
         specifier: ^12.8.2
         version: 12.8.2(typescript@5.8.3)
+      '@xstate/vue':
+        specifier: ^5.0.0
+        version: 5.0.0(vue@3.5.26(typescript@5.8.3))(xstate@5.25.0)
       astro:
         specifier: ^5.16.4
         version: 5.16.6(@types/node@25.0.3)(jiti@1.21.7)(rollup@4.54.0)(sass@1.97.1)(typescript@5.8.3)(yaml@2.8.2)
@@ -35,6 +38,9 @@ importers:
       vuetify:
         specifier: ^3.9.1
         version: 3.11.5(typescript@5.8.3)(vite-plugin-vuetify@2.1.2)(vue@3.5.26(typescript@5.8.3))
+      xstate:
+        specifier: ^5.25.0
+        version: 5.25.0
     devDependencies:
       sass:
         specifier: ^1.89.0
@@ -955,6 +961,15 @@ packages:
 
   '@vueuse/shared@12.8.2':
     resolution: {integrity: sha512-dznP38YzxZoNloI0qpEfpkms8knDtaoQ6Y/sfS0L7Yki4zh40LFHEhur0odJC6xTHG5dxWVPiUWBXn+wCG2s5w==}
+
+  '@xstate/vue@5.0.0':
+    resolution: {integrity: sha512-9TyJV4yz5QLJdEU44Ly9LBooEyZmv0nht3qEvDflxXAJmSn1dzaZeESdHFm+ANHtxoUed5jGqH6NT86BusvXQg==}
+    peerDependencies:
+      vue: ^3.0.0
+      xstate: ^5.20.0
+    peerDependenciesMeta:
+      xstate:
+        optional: true
 
   acorn@8.15.0:
     resolution: {integrity: sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==}
@@ -2520,6 +2535,9 @@ packages:
     resolution: {integrity: sha512-h3Fbisa2nKGPxCpm89Hk33lBLsnaGBvctQopaBSOW/uIs6FTe1ATyAnKFJrzVs9vpGdsTe73WF3V4lIsk4Gacw==}
     engines: {node: '>=18'}
 
+  xstate@5.25.0:
+    resolution: {integrity: sha512-yyWzfhVRoTHNLjLoMmdwZGagAYfmnzpm9gPjlX2MhJZsDojXGqRxODDOi4BsgGRKD46NZRAdcLp6CKOyvQS0Bw==}
+
   xxhash-wasm@1.1.0:
     resolution: {integrity: sha512-147y/6YNh+tlp6nd/2pWq38i9h6mz/EuQ6njIrmW8D1BS5nCqs0P6DG+m6zTGnNz5I+uhZ0SHxBs9BsPrwcKDA==}
 
@@ -3475,6 +3493,12 @@ snapshots:
       vue: 3.5.26(typescript@5.8.3)
     transitivePeerDependencies:
       - typescript
+
+  '@xstate/vue@5.0.0(vue@3.5.26(typescript@5.8.3))(xstate@5.25.0)':
+    dependencies:
+      vue: 3.5.26(typescript@5.8.3)
+    optionalDependencies:
+      xstate: 5.25.0
 
   acorn@8.15.0: {}
 
@@ -5347,6 +5371,8 @@ snapshots:
   wsl-utils@0.1.0:
     dependencies:
       is-wsl: 3.1.0
+
+  xstate@5.25.0: {}
 
   xxhash-wasm@1.1.0: {}
 

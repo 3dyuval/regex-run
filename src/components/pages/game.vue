@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 import { storeToRefs } from 'pinia';
+import { createMachine } from 'xstate';
+import { useMachine } from '@xstate/vue';
+import { useDocumentVisibility } from '@vueuse/core';
 import GameBoard from '@/components/regex-game/game-board.vue';
 import TargetDisplay from '@/components/regex-game/target-display.vue';
 import LevelIndicator from '@/components/regex-game/level-indicator.vue';
@@ -9,8 +12,30 @@ import RegexLegend from '@/components/regex-game/regex-legend.vue';
 import { useTextStore } from '@/store/text.store';
 import { doesMatchSatisfyTarget } from '@/components/regex-game/regex-features';
 
+// Layout visibility state machine
+const layoutVisibilityMachine = createMachine({
+  id: 'layoutVisibility',
+  initial: 'active',
+  states: {
+    active: {
+      on: { DEACTIVATE: 'inactive' },
+    },
+    inactive: {
+      on: { ACTIVATE: 'active' },
+    },
+  },
+});
+
 const textStore = useTextStore();
 const { text, targets, currentFeatures, isLoading } = storeToRefs(textStore);
+
+// Layout visibility tracking
+const visibility = useDocumentVisibility();
+const { snapshot, send } = useMachine(layoutVisibilityMachine);
+
+watch(visibility, (newVisibility) => {
+  send({ type: newVisibility === 'visible' ? 'ACTIVATE' : 'DEACTIVATE' });
+}, { immediate: true });
 
 const level = ref(1);
 const score = ref(0);
