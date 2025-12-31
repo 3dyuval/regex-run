@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import GameBoard from '@/components/regex-game/game-board.vue';
 import TargetDisplay from '@/components/regex-game/target-display.vue';
@@ -74,6 +74,11 @@ const isAllMatched = computed(
   () => matchedTargets.value.length === targets.value.length && targets.value.length > 0
 );
 
+// Emit state changes to navbar
+watch(isAllMatched, (value) => {
+  window.dispatchEvent(new CustomEvent('game:state', { detail: { isAllMatched: value } }));
+});
+
 const handleSubmit = () => {
   if (isAllMatched.value) {
     const basePoints = 100 * level.value;
@@ -106,11 +111,13 @@ const handleShowGuide = () => {
 onMounted(() => {
   getText();
   window.addEventListener('game:skip', handleSkip);
+  window.addEventListener('game:next', handleSubmit);
   window.addEventListener('game:show-guide', handleShowGuide);
 });
 
 onUnmounted(() => {
   window.removeEventListener('game:skip', handleSkip);
+  window.removeEventListener('game:next', handleSubmit);
   window.removeEventListener('game:show-guide', handleShowGuide);
 });
 </script>
@@ -212,17 +219,11 @@ onUnmounted(() => {
   }
 
   .peek-title {
-    font-size: 6rem;
+    font-size: clamp(2rem, 12vw, 10rem);
     line-height: 1;
     color: rgba(var(--v-theme-on-surface), 0.15);
-
-    @media (min-width: 768px) {
-      font-size: 8rem;
-    }
-
-    @media (min-width: 1024px) {
-      font-size: 10rem;
-    }
+    white-space: nowrap;
+    max-width: 90vw;
   }
 
   .loading-state {
